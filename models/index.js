@@ -1,6 +1,5 @@
 // ref activity 15
-// export object containing models
+// export object containing Workout model
 module.exports = {
-    Exercise: require('./exercise'),
-    Workout: require('./workout')
+    Workout: require('./Workout')
 }
