@@ -38,10 +38,6 @@ const WorkoutSchema = new Schema({
             }
         }
     ],
-    totalWeight: {
-        type: Number,
-        default: 0
-    },
     totalDuration: {
         type: Number,
         default: 0
