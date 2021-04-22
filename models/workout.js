@@ -47,7 +47,7 @@ const WorkoutSchema = new Schema({
  const Workout = mongoose.model("Workout", WorkoutSchema);
  module.exports = Workout;
 
- // Attmept to use helper function
+ // Attempt to use helper function
  //   WorkoutSchema.methods.getTotalDuration = function() {
 //     this.totalDuration = `${this.totalDuration}` + `${this.duration}`;
 //     return this.totalDuration;

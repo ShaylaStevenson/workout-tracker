@@ -43,32 +43,27 @@ router.post("/api/workouts", ({ body }, res) => {
         });
 });
 
-//ORIGINAL
 // add exercise to a workout -PUT
 router.put("/api/workouts/:id", (req, res) => {
     db.Workout.findOneAndUpdate(
-        { 
-            _id: req.params.id
-        },
-            // see code below for attempts using aggregate, addfields, sum, and other methods.
+        { _id: req.params.id },
+
+            // see code commented-out at end of page for attempts using aggregate, addfields, sum, and other methods.
             // discovered $inc instead of $set, which worked
 
             // ref: https://www.w3resource.com/mongodb/mongodb-field-update-operator-$inc.php
             //{ $inc: { <field1>: <amount1>, <field2>: <amount2>, ... } }
-        {    
-            $inc: { totalDuration: req.body.duration },
-            $push: { exercises: req.body },
-        },
-            { new: true }
-        )    
-        .then(workout => {
-            //console.log("---------edited workout----------");
-            //console.log(workout);
-            res.json(workout);
-        })
-        .catch(err => {
-            res.json(err);
-        });
+        { $inc: { totalDuration: req.body.duration }, $push: { exercises: req.body } },
+        { new: true }
+    )    
+    .then(workout => {
+        //console.log("---------edited workout----------");
+        //console.log(workout);
+        res.json(workout);
+    })
+    .catch(err => {
+        res.json(err);
+    });
 });
 
 module.exports = router;
@@ -150,8 +145,7 @@ module.exports = router;
             // WorkoutsSchema.methods.getTotalDuration = async function() {
             //     this.totalDuration = 0;
             //     this.exercises.forEach(element => {
-            //       this.totalDuration += Number(element.duration);
-            //       //console.log("T DURATE:", this.totalDuration);
+            //       this.totalDuration += Number(element.duration)
             //     });
             //     return Number(this.totalDuration);
             //   }
