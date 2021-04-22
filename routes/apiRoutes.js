@@ -62,18 +62,17 @@ router.put("/api/workouts/:id", (req, res) => {
                 { new: true }
             )
             ////////////////////////////////
-// .aggregate([
-//     {
-//      $group: {
-//         _id: null,
-//            totalDuration: {
-//               $sum: 
-//                  "$duration"
-                 
-//               }
-//            }
-//         }
-//      ])
+            .aggregate(
+                // Limit to relevant documents and potentially take advantage of an index
+                { $match: {
+                    _id: req.params.id
+                }},
+            
+                { $project: {
+                    _id: req.params.id,
+                    totalDuration: { $add: ["$duration"] }
+                }}
+            )
 
 
 
