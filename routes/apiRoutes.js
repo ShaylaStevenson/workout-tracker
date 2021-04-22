@@ -48,13 +48,36 @@ router.put("/api/workouts/:id", (req, res) => {
             { 
                 _id: req.params.id
             },
+
+
+
+
+
+
+
             {
-                $inc: { totalDuration: req.body.duration },
+                //$inc: { totalDuration: req.body.duration },
                 $push: { exercises: req.body },
-                
             },
                 { new: true }
             )
+            ////////////////////////////////
+.aggregate([
+    {
+     $group: {
+        _id: null,
+           totalDuration: {
+              $sum: 
+                 "$duration"
+                 
+              }
+           }
+        }
+     ])
+
+
+
+////////////////////////////
         .then(workout => {
             console.log("---------edited workout----------");
             console.log(workout);
