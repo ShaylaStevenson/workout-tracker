@@ -4,7 +4,6 @@ const router = require('express').Router();
 
 // get all  workoutes -GET
 router.get("/api/workouts", (req, res) => {
-
     db.Workout.find({})
         .then(allWorkouts => {
             console.log("---------all workouts------------");
@@ -18,8 +17,8 @@ router.get("/api/workouts", (req, res) => {
 
 // get all workouts in range -GET
 router.get("/api/workouts/range", (req, res) => {
-
     db.Workout.find({})
+        .limit(7)
         .then(workoutsRange => {
             console.log("------workouts in range-------");
             console.log(workoutsRange);
@@ -32,7 +31,6 @@ router.get("/api/workouts/range", (req, res) => {
 
 // create new workut -POST
 router.post("/api/workouts", ({ body }, res) => {
-
     db.Workout.create(body)
         .then(workout => {
             console.log("--------new workout---------");
@@ -44,24 +42,16 @@ router.post("/api/workouts", ({ body }, res) => {
         });
 });
 
-//comment in to prepopulate database
-db.Workout.find({}).then(function (res) {
-    console.log("Checking if db is populated");
-    if (res.length === 0) {
-        console.log("DB is empty");
-        require("./seeders/seed.js");
-    }
-});
-
 // add exercise to a workout -PUT
 router.put("/api/workouts/:id", (req, res) => {
-    
     db.Workout.findOneAndUpdate(
             { 
                 _id: req.params.id
             },
             {
-                $push: { exercises: req.body }
+                $inc: { totalDuration: req.body.duration },
+                $push: { exercises: req.body },
+                
             },
                 { new: true }
             )
