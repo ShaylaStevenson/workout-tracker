@@ -62,18 +62,18 @@ router.put("/api/workouts/:id", (req, res) => {
                 { new: true }
             )
             ////////////////////////////////
-// .aggregate([
-//     {
-//      $group: {
-//         _id: null,
-//            totalDuration: {
-//               $sum: 
-//                  "$duration"
+.aggregate([
+    {
+     $group: {
+        _id: null,
+           totalDuration: {
+              $sum: 
+                 "$duration"
                  
-//               }
-//            }
-//         }
-//      ])
+              }
+           }
+        }
+     ])
 
 
 
